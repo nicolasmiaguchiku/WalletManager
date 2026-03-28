@@ -5,11 +5,12 @@ namespace WalletManager.Domain.Enities
     public class TransactionEntity
     {
         public Guid Id { get; set; }
-        public WalletEntity Wallet { get; set; } = default!;
+        public Guid WalletId { get; set; }
         public decimal Amount { get; set; }
-        public TransactionType Type { get; set; }
         public string Description { get; set; } = default!;
+        public TransactionType Type { get; set; }
         public DateTime CreatedAt { get; set; }
+        public WalletEntity Wallet { get; set; } = default!;
 
         public TransactionEntity SetId(Guid id)
         {
@@ -17,9 +18,9 @@ namespace WalletManager.Domain.Enities
             return this;
         }
 
-        public TransactionEntity SetWallet(WalletEntity wallet)
+        public TransactionEntity SetWalletId(Guid walletId)
         {
-            Wallet = wallet;
+            WalletId = walletId;
             return this;
         }
 
@@ -29,15 +30,15 @@ namespace WalletManager.Domain.Enities
             return this;
         }
 
-        public TransactionEntity SetType(TransactionType type)
-        {
-            Type = type;
-            return this;
-        }
-
         public TransactionEntity SetDescription(string description)
         {
             Description = description;
+            return this;
+        }
+
+        public TransactionEntity SetType(TransactionType type)
+        {
+            Type = type;
             return this;
         }
 
@@ -47,46 +48,57 @@ namespace WalletManager.Domain.Enities
             return this;
         }
 
+        public TransactionEntity SetWallet(WalletEntity wallet)
+        {
+            Wallet = wallet;
+            return this;
+        }
+
         public Builder ToBuilder()
         {
             return new Builder
             {
-                Wallet = Wallet,
+                Id = Id,
+                WalletId = WalletId,
                 Amount = Amount,
-                Type = Type,
                 Description = Description,
-                CreatedAt = CreatedAt
+                Type = Type,
+                CreatedAt = CreatedAt,
+                Wallet = Wallet
             };
         }
 
         public class Builder
         {
             internal Guid Id { get; set; }
-            internal WalletEntity Wallet { get; set; } = default!;
+            internal Guid WalletId { get; set; }
             internal decimal Amount { get; set; }
-            internal TransactionType Type { get; set; }
             internal string Description { get; set; } = default!;
+            internal TransactionType Type { get; set; }
             internal DateTime CreatedAt { get; set; }
+            internal WalletEntity Wallet { get; set; } = default!;
 
             public static Builder Create() => new();
 
             public Builder SetId(Guid id) { Id = id; return this; }
-            public Builder SetWallet(WalletEntity wallet) { Wallet = wallet; return this; }
+            public Builder SetWalletId(Guid walletId) { WalletId = walletId; return this; }
             public Builder SetAmount(decimal amount) { Amount = amount; return this; }
-            public Builder SetType(TransactionType type) { Type = type; return this; }
             public Builder SetDescription(string description) { Description = description; return this; }
+            public Builder SetType(TransactionType type) { Type = type; return this; }
             public Builder SetCreatedAt(DateTime createdAt) { CreatedAt = createdAt; return this; }
+            public Builder SetWallet(WalletEntity wallet) { Wallet = wallet; return this; }
 
             public TransactionEntity Build()
             {
                 return new TransactionEntity
                 {
                     Id = Id,
-                    Wallet = Wallet,
+                    WalletId = WalletId,
                     Amount = Amount,
-                    Type = Type,
                     Description = Description,
-                    CreatedAt = CreatedAt
+                    Type = Type,
+                    CreatedAt = CreatedAt,
+                    Wallet = Wallet
                 };
             }
         }

@@ -7,6 +7,7 @@
         public string Email { get; set; } = default!;
         public string PhoneNumber { get; set; } = default!;
         public string PasswordHash { get; set; } = default!;
+        public WalletEntity? Wallet { get; set; }
 
         public CustomerEntity SetId(Guid id)
         {
@@ -38,6 +39,12 @@
             return this;
         }
 
+        public CustomerEntity SetWallet(WalletEntity wallet)
+        {
+            Wallet = wallet;
+            return this;
+        }
+
         public Builder ToBuilder()
         {
             return new Builder
@@ -45,7 +52,8 @@
                 Name = Name,
                 Email = Email,
                 PhoneNumber = PhoneNumber,
-                PassdwordHash = PasswordHash
+                PassdwordHash = PasswordHash,
+                Wallet = Wallet
             };
         }
 
@@ -55,7 +63,8 @@
             internal string Name { get; set; } = default!;
             internal string Email { get; set; } = default!;
             internal string PhoneNumber { get; set; } = default!;
-            internal string PassdwordHash { get; set; } = default!;
+            internal string PasswordHash { get; set; } = default!;
+            internal WalletEntity? Wallet { get; set; }
 
             public static Builder Create() => new();
 
@@ -63,7 +72,8 @@
             public Builder SetName(string name) { Name = name; return this; }
             public Builder SetEmail(string email) { Email = email; return this; }
             public Builder SetPhoneNumber(string phoneNumber) { PhoneNumber = phoneNumber; return this; }
-            public Builder SetPassdwordHash(string passdwordHash) { PassdwordHash = passdwordHash; return this; }
+            public Builder SetPasswordHash(string passdwordHash) { PasswordHash = passdwordHash; return this; }
+            public Builder SetWallet(WalletEntity wallet) { Wallet = wallet; return this; }
 
             public CustomerEntity Build()
             {
@@ -73,7 +83,8 @@
                     Name = Name,
                     Email = Email,
                     PhoneNumber = PhoneNumber,
-                    PasswordHash = PassdwordHash
+                    PasswordHash = PasswordHash,
+                    Wallet = Wallet
                 };
             }
         }
