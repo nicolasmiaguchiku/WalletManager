@@ -1,1 +1,18 @@
-<Solution />
+<Solution>
+  <Folder Name="/Adapters/" />
+  <Folder Name="/Adapters/Input/">
+    <Project Path="src/WalletManager.WebApi/WalletManager.WebApi.csproj" />
+  </Folder>
+  <Folder Name="/Adapters/Output/">
+    <Project Path="src/WalletManager.Infrastructure/WalletManager.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Core/">
+    <Project Path="src/WalletManager.Domain/WalletManager.Domain.csproj" />
+  </Folder>
+  <Folder Name="/Ioc/">
+    <Project Path="src/WalletManager.CrossCutting/WalletManager.CrossCutting.csproj" />
+  </Folder>
+  <Folder Name="/Ports/">
+    <Project Path="src/WalletManager.Application/WalletManager.Application.csproj" />
+  </Folder>
+</Solution>
