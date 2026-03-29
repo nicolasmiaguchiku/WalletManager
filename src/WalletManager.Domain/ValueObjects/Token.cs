@@ -2,6 +2,5 @@
 {
     public record Token(
     string AccessToken,
-    string RefreshToken,
-    DateTime RefreshTokenExpiresAt);
+    string RefreshToken);
 }

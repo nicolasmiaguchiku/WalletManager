@@ -2,6 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using WalletManager.Domain.Interfaces.Services;
 using WalletManager.Infrastructure.Models;
@@ -33,6 +34,19 @@ namespace WalletManager.Infrastructure.Services
             var token = _tokenHandler.CreateJwtSecurityToken(tokenDescriptor);
 
             return token;
+        }
+
+        public string GenerateRefreshToken()
+        {
+            var secureRandomBytes = new byte[128];
+
+            using var randomNumberGenerator = RandomNumberGenerator.Create();
+
+            randomNumberGenerator.GetBytes(secureRandomBytes);
+
+            var refreshToken = Convert.ToBase64String(secureRandomBytes);
+
+            return refreshToken;
         }
     }
 }

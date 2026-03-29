@@ -6,5 +6,6 @@ namespace WalletManager.Domain.Interfaces.Services
     public interface ITokenProvider
     {
         JwtSecurityToken GenerateAccessToken(IEnumerable<Claim> claims);
+        string GenerateRefreshToken();
     }
 }
