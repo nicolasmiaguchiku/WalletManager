@@ -15,10 +15,12 @@ namespace WalletManager.Infrastructure.Mappings
                 .HasPrecision(18, 2);
 
             builder.Property(t => t.Type)
+                .HasColumnType("varchar(20)")
+                .HasConversion<string>()
                 .IsRequired();
 
             builder.Property(t => t.Description)
-                .HasColumnType("varchar(100")
+                .HasColumnType("varchar(100)")
                 .IsRequired();
 
             builder.Property(t => t.CreatedAt)
