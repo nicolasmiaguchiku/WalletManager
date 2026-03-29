@@ -52,7 +52,7 @@
                 Name = Name,
                 Email = Email,
                 PhoneNumber = PhoneNumber,
-                PassdwordHash = PasswordHash,
+                PasswordHash = PasswordHash,
                 Wallet = Wallet
             };
         }
