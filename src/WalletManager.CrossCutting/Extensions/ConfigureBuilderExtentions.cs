@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Microsoft.VisualBasic;
 using WalletManager.CrossCutting.Models;
 
 namespace WalletManager.CrossCutting.Extensions
@@ -13,6 +14,7 @@ namespace WalletManager.CrossCutting.Extensions
             if (!env.IsDevelopment())
             {
                 settings.PostgresSettings.ConnectionString = GetOrDefault("POSTGRES_CONNECTION_STRING", settings.PostgresSettings.ConnectionString);
+                settings.JwtSettings.SecretKey = GetOrDefault("Jwt_SecretKey", settings.JwtSettings.SecretKey);
             }
 
             return settings;
