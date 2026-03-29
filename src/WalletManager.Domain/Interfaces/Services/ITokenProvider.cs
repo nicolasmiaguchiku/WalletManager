@@ -7,5 +7,6 @@ namespace WalletManager.Domain.Interfaces.Services
     {
         JwtSecurityToken GenerateAccessToken(IEnumerable<Claim> claims);
         string GenerateRefreshToken();
+        ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
     }
 }

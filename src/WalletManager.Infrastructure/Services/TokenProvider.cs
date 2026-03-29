@@ -48,5 +48,29 @@ namespace WalletManager.Infrastructure.Services
 
             return refreshToken;
         }
+
+        public ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
+        {
+            var secretKey = settings.Value.SecretKey;
+
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateAudience = false,
+                ValidateIssuer = false,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
+                ValidateLifetime = false
+            };
+
+            var principal = _tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken securityToken);
+
+            if (securityToken is not JwtSecurityToken jwtSecurityToken ||
+                !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+            {
+                throw new SecurityTokenException("Invalid token");
+            }
+
+            return principal;
+        }
     }
 }
