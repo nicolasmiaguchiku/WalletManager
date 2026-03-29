@@ -16,6 +16,6 @@ namespace WalletManager.Infrastructure.Context
 
         public DbSet<WalletEntity> Wallets { get; set; }
         public DbSet<TransactionEntity> Transactions { get; set; }
-        public DbSet<CustomerEntity> Customers { get; set; }
+        public DbSet<CustomerEntity> Customers { get; set; } 
     }
 }
