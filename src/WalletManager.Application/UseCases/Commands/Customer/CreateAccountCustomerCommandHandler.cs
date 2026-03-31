@@ -1,4 +1,5 @@
 ﻿using LiteBus.Commands.Abstractions;
+using WalletManager.Application.Mappers;
 using WalletManager.Domain.Base;
 using WalletManager.Domain.Errors;
 using WalletManager.Domain.Interfaces.Repositories;
@@ -8,8 +9,7 @@ namespace WalletManager.Application.UseCases.Commands.Customer
 {
     public sealed class CreateAccountCustomerCommandHandler(
         ICustomerRepository customerRepository,
-        IPasswordHashService passwordHashService)
-        : ICommandHandler<CreateAccountCustomerCommand, Result<Guid>>
+        IPasswordHashService passwordHashService) : ICommandHandler<CreateAccountCustomerCommand, Result<Guid>>
     {
         public async Task<Result<Guid>> HandleAsync(CreateAccountCustomerCommand message, CancellationToken cancellationToken = default)
         {
@@ -22,10 +22,18 @@ namespace WalletManager.Application.UseCases.Commands.Customer
 
             var password = passwordHashService.ComparePassword(message.Request.Password, message.Request.ConfirmPassword);
 
-            if(!password)
+            if (!password)
             {
-                return Result<Guid>.Failure(CustomerErrors.);
+                return Result<Guid>.Failure(CustomerErrors.PasswordsDoNotMatchError);
             }
+
+            var passswordHash = passwordHashService.EncryptPassword(message.Request.Password);
+
+            var customerEntity = message.Request.ToEntity(passswordHash);
+
+            await customerRepository.InsertAsync(customerEntity, cancellationToken);
+
+            return Result<Guid>.Success(customerEntity.Id);
         }
     }
 }

@@ -14,6 +14,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\WalletManager.Application\WalletManager.Application.csproj" />
 		<ProjectReference Include="..\WalletManager.CrossCutting\WalletManager.CrossCutting.csproj" />
 	</ItemGroup>
 
