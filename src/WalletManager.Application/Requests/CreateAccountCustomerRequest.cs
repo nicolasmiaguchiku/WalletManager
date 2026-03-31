@@ -1,6 +1,6 @@
 ﻿namespace WalletManager.Application.Requests;
 
-public record CreateAccountRequest(
+public record CreateAccountCustomerRequest(
     string Name,
     string Email,
     string PhoneNumber,
