@@ -13,6 +13,9 @@ var applicationSettings = builder.Configuration.GetApplicationSettings(builder.E
 
 builder.Services
     .AddDatabase(applicationSettings.PostgresSettings)
+    .AddServices()
+    .AddRepositories()
+    .AddMediator()
     .AddApiSpecification()
     .AddControllers();
 

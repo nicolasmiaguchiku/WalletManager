@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.VisualBasic;
 using WalletManager.CrossCutting.Models;
 
 namespace WalletManager.CrossCutting.Extensions
