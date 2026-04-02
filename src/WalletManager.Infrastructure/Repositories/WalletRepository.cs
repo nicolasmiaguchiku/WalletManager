@@ -4,4 +4,5 @@ using WalletManager.Infrastructure.Context;
 
 namespace WalletManager.Infrastructure.Repositories;
 
-public class WalletRepository(DataContext dataContext) : BaseRepository<WalletEntity>(dataContext), IWalletRepository;
+public class WalletRepository(DataContext dataContext) :
+    BaseRepository<WalletEntity>(dataContext), IWalletRepository;

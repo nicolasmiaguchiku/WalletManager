@@ -9,6 +9,7 @@ namespace WalletManager.CrossCutting.Extensions
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IWalletRepository, WalletRepository>();
             return services;
         }
     }
