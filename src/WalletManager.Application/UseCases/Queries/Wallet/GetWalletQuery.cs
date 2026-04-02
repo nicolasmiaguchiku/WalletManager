@@ -1,3 +1,7 @@
-﻿namespace WalletManager.Application.UseCases.Queries.Wallet;
+﻿using LiteBus.Queries.Abstractions;
+using WalletManager.Application.Responses;
+using WalletManager.Domain.Base;
 
-public record GetWalletQuery();
+namespace WalletManager.Application.UseCases.Queries.Wallet;
+
+public record GetWalletQuery() : IQuery<Result<GetWalletResponse>>;
