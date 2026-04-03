@@ -39,7 +39,6 @@ namespace WalletManager.Application.UseCases.Commands.Customer
                 .SetId(Guid.NewGuid())
                 .SetCustomerId(customerEntity.Id)
                 .SetBalance(0)
-                .SetTransactions([])
                 .Build();
 
             await walletRepository.InsertAsync(walletEntity, cancellationToken);
