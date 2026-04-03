@@ -1,6 +1,7 @@
 ﻿using LiteBus.Commands.Abstractions;
 using WalletManager.Domain.Base;
 using WalletManager.Domain.Enities;
+using WalletManager.Domain.Enum;
 using WalletManager.Domain.Interfaces.Repositories;
 
 namespace WalletManager.Application.UseCases.Commands.Transaction
@@ -23,7 +24,9 @@ namespace WalletManager.Application.UseCases.Commands.Transaction
                 .SetCreatedAt(DateTime.UtcNow)
                 .Build();
 
-            wallet.SetTransaction(transaction);
+            wallet!.Balance = transaction.Type == TransactionType.Expensive
+                ? wallet.Balance - transaction.Amount
+                : wallet.Balance + transaction.Amount;
 
             await walletRepository.UpdateAsync(wallet, cancellationToken);
 
