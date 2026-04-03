@@ -7,7 +7,7 @@ namespace WalletManager.WebApi.Controllers
 {
     [ApiController]
     [Route("api/v1/customer")]
-    public class CustomerCommandController(ICommandMediator commandMediator) : ControllerBase
+    public class CustomerController(ICommandMediator commandMediator) : ControllerBase
     {
         [HttpPost("create-account")]
         [ProducesResponseType(StatusCodes.Status200OK)]

@@ -4,4 +4,4 @@ using WalletManager.Domain.Base;
 
 namespace WalletManager.Application.UseCases.Queries.Wallet;
 
-public record GetWalletQuery() : IQuery<Result<GetWalletResponse>>;
+public record GetWalletQuery(Guid Id) : IQuery<Result<WalletResponse>>;

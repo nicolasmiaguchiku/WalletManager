@@ -1,6 +1,6 @@
 ﻿namespace WalletManager.Application.Responses;
 
-public record GetTransactionResponse(
+public record TransactionResponse(
     Guid Id,
     Guid WalletId,
     decimal Amount,
