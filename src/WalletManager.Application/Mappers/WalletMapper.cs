@@ -5,11 +5,11 @@ namespace WalletManager.Application.Mappers
 {
     public static class WalletMapper
     {
-        public static WalletResponse ToResponse(this WalletEntity walletEntity)
+        public static WalletResponse ToResponse(this WalletEntity walletEntity, IEnumerable<TransactionEntity> transactions)
         {
             return new WalletResponse(
                 walletEntity.Balance,
-                walletEntity.Transactions.ToResponse());
+                transactions.ToResponse());
         }
     }
 }
