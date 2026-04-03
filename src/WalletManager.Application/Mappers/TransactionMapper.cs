@@ -9,7 +9,6 @@ namespace WalletManager.Application.Mappers
         {
             return transactionEntities.Select(x => new TransactionResponse(
                 x.Id,
-                x.WalletId,
                 x.Amount,
                 x.Description,
                 x.Type.ToString(),
