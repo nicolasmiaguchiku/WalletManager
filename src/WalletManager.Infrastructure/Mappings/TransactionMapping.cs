@@ -29,7 +29,7 @@ namespace WalletManager.Infrastructure.Mappings
             builder.HasOne(t => t.Wallet)
                 .WithMany(w => w.Transactions)
                 .HasForeignKey(t => t.WalletId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasIndex(t => t.WalletId)
                 .HasDatabaseName("IX_Transaction_WalletId");
