@@ -8,7 +8,6 @@ namespace WalletManager.Application.Mappers
         public static WalletResponse ToResponse(this WalletEntity walletEntity)
         {
             return new WalletResponse(
-                walletEntity.CustomerId,
                 walletEntity.Balance,
                 walletEntity.Transactions.ToResponse());
         }
