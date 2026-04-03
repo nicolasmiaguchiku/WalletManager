@@ -26,31 +26,13 @@
             return this;
         }
 
-        public WalletEntity SetCustomer(CustomerEntity customer)
-        {
-            Customer = customer;
-            return this;
-        }
-
-        public WalletEntity SetTransactions(ICollection<TransactionEntity> transactions)
-        {
-            Transactions = transactions;
-            return this;
-        }
-
-        public void SetTransaction(TransactionEntity transaction)
-        {
-            Transactions.Add(transaction);
-        }
-
         public Builder ToBuilder()
         {
             return new Builder
             {
+                Id = Id,
                 Balance = Balance,
                 CustomerId = CustomerId,
-                Customer = Customer,
-                Transactions = Transactions
             };
         }
 
@@ -67,8 +49,6 @@
             public Builder SetId(Guid id) { Id = id; return this; }
             public Builder SetCustomerId(Guid customerId) { CustomerId = customerId; return this; }
             public Builder SetBalance(decimal balance) { Balance = balance; return this; }
-            public Builder SetCustomer(CustomerEntity customer) { Customer = customer; return this; }
-            public Builder SetTransactions(ICollection<TransactionEntity> transactions) { Transactions = transactions; return this; }
 
             public WalletEntity Build()
             {
@@ -76,9 +56,7 @@
                 {
                     Id = Id,
                     CustomerId = CustomerId,
-                    Balance = Balance,
-                    Customer = Customer,
-                    Transactions = Transactions
+                    Balance = Balance
                 };
             }
         }

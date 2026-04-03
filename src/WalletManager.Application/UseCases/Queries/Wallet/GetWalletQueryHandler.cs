@@ -6,13 +6,17 @@ using WalletManager.Domain.Interfaces.Repositories;
 
 namespace WalletManager.Application.UseCases.Queries.Wallet
 {
-    public class GetWalletQueryHandler(IWalletRepository walletRepository) : IQueryHandler<GetWalletQuery, Result<WalletResponse>>
+    public class GetWalletQueryHandler(
+        IWalletRepository walletRepository,
+        ITransactionRepository transactionRepository) : IQueryHandler<GetWalletQuery, Result<WalletResponse>>
     {
         public async Task<Result<WalletResponse>> HandleAsync(GetWalletQuery message, CancellationToken cancellationToken = default)
         {
             var walletEntity = await walletRepository.GetAsync(x => x.CustomerId == message.Id, cancellationToken);
 
-            var wallet = walletEntity!.ToResponse();
+            var transactions = await transactionRepository.GetAllAsync(x => x.WalletId == walletEntity!.Id, cancellationToken);
+
+            var wallet = walletEntity!.ToResponse(transactions);
 
             return Result<WalletResponse>.Success(wallet);
         }

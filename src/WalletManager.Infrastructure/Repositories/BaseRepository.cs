@@ -31,5 +31,12 @@ namespace WalletManager.Infrastructure.Repositories
             return await dataContext.Set<TEntity>()
                 .FirstOrDefaultAsync(filterExpression, cancellationToken);
         }
+
+        public async Task<IEnumerable<TEntity?>> GetAllAsync(Expression<Func<TEntity, bool>> filterExpression, CancellationToken cancellationToken)
+        {
+            return await dataContext.Set<TEntity>()
+                .Where(filterExpression)
+                .ToListAsync(cancellationToken);
+        }
     }
 }
