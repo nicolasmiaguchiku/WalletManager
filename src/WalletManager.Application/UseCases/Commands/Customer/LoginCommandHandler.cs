@@ -1,26 +1,23 @@
 ﻿using LiteBus.Commands.Abstractions;
 using WalletManager.Application.Mappers;
 using WalletManager.Domain.Base;
-using WalletManager.Domain.Interfaces.Repositories;
 using WalletManager.Domain.Interfaces.Services;
 using WalletManager.Domain.ValueObjects;
 
 namespace WalletManager.Application.UseCases.Commands.Customer
 {
-    public sealed class LoginCommandHandler(
-        ICustomerRepository customerRepository,
-        IAuthenticationService authenticationService) : ICommandHandler<LoginCommand, Result<Token>>
+    public sealed class LoginCommandHandler(IAuthenticationService authenticationService) : ICommandHandler<LoginCommand, Result<Token>>
     {
         public async Task<Result<Token>> HandleAsync(LoginCommand message, CancellationToken cancellationToken = default)
         {
-            var customer = await customerRepository.GetAsync(x => x.Email == message.Request.Email, cancellationToken);
+            var authenticationResult = await authenticationService.Authenticate(message.Request.ToUser(), cancellationToken);
 
-            if(customer is null)
+            if (authenticationResult.IsFaiulure)
             {
-                return Result<Token>.Failure(customer);
+                return Result<Token>.Failure(authenticationResult.Error);
             }
 
-            var authenticationResult = authenticationService.Authenticate(customer.ToUser());
+            return Result<Token>.Success(authenticationResult.Data);
         }
     }
 }

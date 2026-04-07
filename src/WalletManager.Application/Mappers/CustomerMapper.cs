@@ -17,9 +17,9 @@ namespace WalletManager.Application.Mappers
                 .Build();
         }
 
-        public static User ToUser(this CustomerEntity customer)
+        public static User ToUser(this LoginRequest loginRequest)
         {
-            return new User(customer.Email, customer.PasswordHash);
+            return new User(loginRequest.Email, loginRequest.Password);
         }
     }
 }
