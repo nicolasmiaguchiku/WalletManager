@@ -9,6 +9,12 @@ namespace WalletManager.WebApi.Controllers
     [Route("api/v1/customer")]
     public class CustomerController(ICommandMediator commandMediator) : ControllerBase
     {
+        /// <summary>
+        ///     Create a customer account with the provided details and returns the ID of the created customer.
+        /// </summary>
+        /// <param name="request">The request object containing customer details.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>Id of customer created</returns>
         [HttpPost("create-account")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -25,6 +31,14 @@ namespace WalletManager.WebApi.Controllers
             return Ok(result.Data);
         }
 
+        /// <summary>
+        ///     Authenticates a user with the provided credentials and returns a result indicating success or failure.
+        /// </summary>
+        /// <param name="request">The login request containing user credentials to be authenticated. Cannot be null.</param>
+        /// <param name="cancellationToken">A cancellation token that can be used to cancel the login operation.</param>
+        /// <returns>An IActionResult containing the authentication result. Returns 200 OK with access token if authentication
+        /// succeeds; 400 Bad Request with error details if authentication fails; or 500 Internal Server Error for
+        /// unexpected failures.</returns>
         [HttpPost("login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
