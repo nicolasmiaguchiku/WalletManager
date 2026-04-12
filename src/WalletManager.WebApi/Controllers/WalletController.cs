@@ -8,7 +8,16 @@ namespace WalletManager.WebApi.Controllers
     [Route("api/v1/wallet")]
     public class WalletController(IQueryMediator queryMediator) : ControllerBase
     {
+        /// <summary>
+        ///     Get logged-in customer's wallet
+        /// </summary>
+        /// <param name="CustomerId">The ID of the customer whose wallet is to be returned.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>The wallet details of the logged-in customer.</returns>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetWalletAsync([FromQuery] Guid CustomerId, CancellationToken cancellationToken)
         {
             var result = await queryMediator.QueryAsync(new GetWalletQuery(CustomerId), cancellationToken);
