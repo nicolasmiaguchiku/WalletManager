@@ -24,5 +24,20 @@ namespace WalletManager.WebApi.Controllers
 
             return Ok(result.Data);
         }
+
+        [HttpPost("login")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Login([FromBody] LoginRequest request, CancellationToken cancellationToken)
+        {
+            var result = await commandMediator.SendAsync(new LoginCommand(request), cancellationToken);
+
+            if (result.IsFaiulure)
+            {
+                return BadRequest(result.Error);
+            }
+            return Ok(result.Data);
+        }
     }
 }

@@ -5,6 +5,6 @@ namespace WalletManager.Domain.Interfaces.Services
 {
     public interface IAuthenticationService
     {
-        Task<Result<Token>> Authenticate(User user);
+        Task<Result<Token>> Authenticate(User user, CancellationToken cancellationToken);
     }
 }

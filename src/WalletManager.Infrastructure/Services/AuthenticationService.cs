@@ -3,6 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using WalletManager.Domain.Base;
 using WalletManager.Domain.Errors;
+using WalletManager.Domain.Interfaces.Repositories;
 using WalletManager.Domain.Interfaces.Services;
 using WalletManager.Domain.ValueObjects;
 using WalletManager.Infrastructure.Context;
@@ -11,14 +12,14 @@ namespace WalletManager.Infrastructure.Services
 {
     public class AuthenticationService(
         IPasswordHashService passwordHashService,
-        DataContext dataContext,
+        ICustomerRepository customerRepository,
         ITokenProvider tokenProvider) : IAuthenticationService
     {
         private readonly JwtSecurityTokenHandler _tokenHandler = new();
 
-        public async Task<Result<Token>> Authenticate(User user)
+        public async Task<Result<Token>> Authenticate(User user, CancellationToken cancellationToken)
         {
-            var customer = await dataContext.Customers.FirstOrDefaultAsync(x => x.Email == user.Email);
+            var customer = await customerRepository.GetAsync(x => x.Email == user.Email, cancellationToken);
 
             if (customer is null || !passwordHashService.VerifyPassword(user.Password, customer.PasswordHash))
             {

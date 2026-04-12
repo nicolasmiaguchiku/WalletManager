@@ -15,6 +15,7 @@ builder.Services
     .AddDatabase(applicationSettings.PostgresSettings)
     .AddServices()
     .AddRepositories()
+    .ConfigureAuthentication(applicationSettings.JwtSettings)
     .AddMediator()
     .AddApiSpecification()
     .AddControllers();
