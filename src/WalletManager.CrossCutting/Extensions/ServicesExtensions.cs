@@ -9,6 +9,8 @@ namespace WalletManager.CrossCutting.Extensions
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddScoped<IPasswordHashService, PasswordHashService>();
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<ITokenProvider, TokenProvider>();
             return services;
         }
     }
